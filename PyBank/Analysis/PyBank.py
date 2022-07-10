@@ -7,6 +7,16 @@ budget_csv = os.path.join("..", "Resources", "budget_data.csv")
 date = []
 money = []
 
+def mean_calc(array):
+    mean = sum(array)/len(array)
+    return mean
+
+def min_max(array: list):
+    new_array = array
+    new_array.sort()
+    min_val = new_array[0]
+    max_val = new_array[-1]
+    return min_val, max_val
 
 with open(budget_csv) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
@@ -21,27 +31,29 @@ months = len(date)
 total = sum(money)
 i = 0
 changes = []
+unchanged = []
 while i < len(money) -1:
     current = money[i]
     future = money[i+1]
     difference = future - current
     changes.append(difference)
+    unchanged.append(difference)
     i += 1
 
-avg_change = np.mean(changes)
+print(changes)
+avg_change = mean_calc(changes)
 change_avg = round(avg_change, 2)
-maximum_change = np.max(money)
-max_index = money.index(maximum_change)
-minimum_change = np.min(money)
-min_index = money.index(minimum_change)
+minimum_change, maximum_change = min_max(changes)
+max_index = unchanged.index(maximum_change)
+min_index = unchanged.index(minimum_change)
 
 print(f"Financial Analysis")
 print("----------------------------")
 print(f"Total months: {months}")
 print(f"Total: ${total}")
 print(f"Average Change: ${change_avg}")
-print(f"Greatest Increase in Profits: {date[max_index]} (${maximum_change})")
-print(f"Greatest Decrease in Profits: {date[min_index]} (${minimum_change})")
+print(f"Greatest Increase in Profits: {date[max_index + 1]} (${maximum_change})")
+print(f"Greatest Decrease in Profits: {date[min_index + 1]} (${minimum_change})")
 
 output_file = os.path.join('PyBank.txt')
 
