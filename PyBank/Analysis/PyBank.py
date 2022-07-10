@@ -1,6 +1,6 @@
 import csv
 import os
-import numpy as np
+
 
 budget_csv = os.path.join("..", "Resources", "budget_data.csv")
 
