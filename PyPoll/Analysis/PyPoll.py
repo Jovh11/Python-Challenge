@@ -1,6 +1,6 @@
 import csv
 import os
-import numpy as np
+
 
 candidate = []
 
@@ -11,10 +11,22 @@ with open(csvpath) as csvfile:
     for row in csvreader:
         candidate.append(row[2])
 
+def unique_finder(array: list):
+    unique_items = []
+    for item in array:
+        if item not in unique_items:
+            unique_items.append(item)
+    return unique_items
+def max_finder(array: list):
+    array.sort()
+    max_val = array[-1]
+    return max_val
+
 total_votes = len(candidate)
-all_voted = np.unique(candidate)
+all_voted = unique_finder(candidate)
 new_voted = []
 got_votes = []
+sorted_votes = []
 votes_pct = []
 for x in all_voted:
     value = str(x)
@@ -22,9 +34,10 @@ for x in all_voted:
 new_voted.pop(0)
 for x in new_voted:
     got_votes.append(candidate.count(x))
+    sorted_votes.append(candidate.count(x))
     percentage = round((candidate.count(x)/total_votes * 100), 3)
     votes_pct.append(percentage)
-max_votes = np.max(got_votes)
+max_votes = max_finder(sorted_votes)
 finder = got_votes.index(max_votes)
 winner = new_voted[finder]
 print(f'Election Results')
