@@ -68,6 +68,6 @@ with open(output_file, 'w') as datafile:
     datafile.write('\n')
     datafile.write(f"Average Change: ${change_avg}")
     datafile.write('\n')
-    datafile.write(f"Greatest Increase in Profits: {date[max_index]} (${maximum_change})")
+    datafile.write(f"Greatest Increase in Profits: {date[max_index + 1]} (${maximum_change})")
     datafile.write('\n')
-    datafile.write(f"Greatest Decrease in Profits: {date[min_index]} (${minimum_change})")
+    datafile.write(f"Greatest Decrease in Profits: {date[min_index + 1]} (${minimum_change})")
